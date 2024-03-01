@@ -33,6 +33,12 @@
   }
 
 
+  $: _chronos = chronos.sort((a,b) => {
+    if (!a.endAt || !b.endAt) return 1
+    const durationA = a.endAt.getTime() - a.startAt.getTime() 
+    const durationB = b.endAt.getTime() - b.startAt.getTime() 
+    return durationA - durationB
+  })
 
 
 </script>
@@ -57,7 +63,7 @@
   </div>
   
   <div class="flex flex-col gap-2 mt-4">
-      {#each chronos as chrono}
+      {#each _chronos as chrono}
         <Chrono {chrono}/>
       {/each}
   </div>
