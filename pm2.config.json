@@ -1,0 +1,9 @@
+{
+  "apps": [
+    {
+      "name": "scron",
+      "script": "./build/index.js",
+      "args": "-r dotenv/config"
+    }
+  ]
+}
