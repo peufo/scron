@@ -12,7 +12,7 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "postinstall": "prisma migrate deploy && prisma generate",
-    "serve": "pm2 startOrRestart pm2.config.json"
+    "serve": "export PORT=5009 && pm2 startOrRestart pm2.config.json"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^3.0.0",
