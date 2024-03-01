@@ -3,18 +3,25 @@
 
 </script>
 
-<h1>SCRON</h1>
+<div class="p-1">
 
-<form action="?/create_session" method="post">
-  <input type="text" name="name" class="input">
-  <button class="btn">Nouvelle session</button>
-</form>
+  <h1 class="font-bold text-xl p-4">SCRON</h1>
+  
+  <form action="?/create_session" method="post">
+    <input type="text" name="name" class="input" placeholder="Name">
+    <button class="btn">Nouvelle session</button>
+  </form>
+  
+  <hr class="divider">
 
-<hr>
-<h2>Sessions</h2>
+  <h2 class="font-semibold opacity-70 text-lg">Sessions</h2>
+  
+  <div class="flex flex-col gap-2">
+    {#each data.sessions as session}
+      <a class="btn" href="/s/{session.id}">
+        {session.name}
+      </a>
+    {/each}
+  </div>
 
-{#each data.sessions as session}
-  <section class="card">
-    <h2>{session.name}</h2>
-  </section>
-{/each}
+</div>
