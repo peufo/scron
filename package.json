@@ -32,6 +32,7 @@
   "type": "module",
   "dependencies": {
     "@prisma/client": "5.10.2",
+    "@types/node": "^20.11.24",
     "dayjs": "^1.11.10",
     "zod": "^3.22.4"
   }

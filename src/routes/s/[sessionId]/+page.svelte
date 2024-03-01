@@ -1,8 +1,37 @@
 <script lang="ts">
   import { enhance } from '$app/forms'
+  import { onMount } from 'svelte'
+  import type { Chrono as TChrono} from '@prisma/client'
   import Chrono from './Chrono.svelte';
+  import { page } from '$app/stores'
 
   export let data
+
+  let chronos = data.session.chronos
+
+
+  onMount(() => {
+		const subscription = new EventSource($page.url)
+		subscription.addEventListener('create_chrono', onCreateChrono)
+		subscription.addEventListener('stop_chrono', onStopChrono)
+	})
+
+  function onCreateChrono(event: MessageEvent<TChrono>) {
+    const newChrono = JSON.parse(event.data)
+    newChrono.startAt = new Date(newChrono.startAt)
+    chronos = [...chronos, newChrono]
+  }
+  function onStopChrono(event: MessageEvent<TChrono>) {
+    const newChrono = JSON.parse(event.data)
+    newChrono.startAt = new Date(newChrono.startAt)
+    newChrono.endAt = new Date(newChrono.endAt)
+    chronos = chronos.map(c => {
+      if (c.id !== newChrono.id) return c
+      return newChrono
+    })
+  }
+
+
 
 
 </script>
@@ -22,12 +51,9 @@
   </div>
   
   <div class="flex flex-col gap-2 p-2">
-    
-      {#each data.session.chronos as  chrono}
+      {#each chronos as chrono}
         <Chrono {chrono}/>
-  
       {/each}
-  
   </div>
 </div>
 
